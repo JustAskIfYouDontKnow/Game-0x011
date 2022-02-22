@@ -32,7 +32,7 @@ public class GoHomeState : State
         
         if (Vector3.Distance(AIPos, _targetPos) > 0.2)
         {
-            ai.transform.position = Vector3.MoveTowards(AIPos, _targetPos, Time.deltaTime * ai.Speed);
+            ai.transform.position = Vector3.MoveTowards(AIPos, _targetPos, Time.deltaTime * ai.speed);
         }
         else
         {

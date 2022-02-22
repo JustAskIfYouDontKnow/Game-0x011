@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
 
     public void FixedUpdate()
     {
-       statePlayerText.text = _ai._stateMachine.GetCurrentState();
-       capacityText.text = "Capacity:" + _ai.Capacity + "/" + _ai.itemsCount;
+       statePlayerText.text = _ai.stateMachine.GetCurrentState();
+       capacityText.text = "Capacity:" + _ai.inventory.Capacity + "/" + _ai.inventory.Count;
     }
 }

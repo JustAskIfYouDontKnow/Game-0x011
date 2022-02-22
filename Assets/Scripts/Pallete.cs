@@ -21,12 +21,18 @@ public class Pallete : MonoBehaviour
         {
             _points[i] = _spawnPoints.GetChild(i).GetComponent<PalletePoint>();
         }
+        LoadObject(testPrefab);
     }
 
     private void Update()
     {
         //Test
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadObject(testPrefab);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.U))
         {
             LoadObject(testPrefab);
         }

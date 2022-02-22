@@ -37,7 +37,7 @@ public class GoToPalletState : State
         if (Vector3.Distance(AIPos, _target) > 0.2)
         {
             Debug.Log("Going to");
-            ai.transform.position = Vector3.MoveTowards(AIPos, _target, Time.deltaTime * ai.Speed);
+            ai.transform.position = Vector3.MoveTowards(AIPos, _target, Time.deltaTime * ai.speed);
         }
         else
         {

@@ -1,13 +1,17 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.UI;
+using UnityEditor.VersionControl;
+using UnityEngine.Serialization;
 
 public class AIBrain : StateMachine
 {
-    [SerializeField] public StateMachine _stateMachine;
-
-    [SerializeField] public float Speed;
-
-    [SerializeField] public int Capacity;
-    public int itemsCount = 0;
+    [SerializeField] public StateMachine stateMachine;
+    [SerializeField] public float speed;
+    [SerializeField] public int itemCapacity;
+    [SerializeField] public int itemsCount = 0;
+    [SerializeField] public List<Item> inventory;
 
 
     public BaseState Base;
@@ -17,31 +21,48 @@ public class AIBrain : StateMachine
 
     void Start()
     {
-        _stateMachine = gameObject.AddComponent<StateMachine>();
-
-        Base      = new BaseState      (this, _stateMachine);
-        FindFood  = new FindFoodState  (this, _stateMachine);
-        GoHome    = new GoHomeState    (this, _stateMachine);
-        GoPallete = new GoToPalletState(this, _stateMachine);
+        stateMachine = gameObject.AddComponent<StateMachine>();
         
+        inventory = new List<Item>(itemCapacity);
+        
+        Base = new BaseState(this, stateMachine);
+        FindFood = new FindFoodState(this, stateMachine);
+        GoHome = new GoHomeState(this, stateMachine);
+        GoPallete = new GoToPalletState(this, stateMachine);
+
         ////SET START STATE////
-        _stateMachine.SetState(GoPallete);
+        stateMachine.SetState(Base);
     }
 
     void FixedUpdate()
     {
-        _stateMachine.UpdateState();
+        stateMachine.UpdateState();
+    }
 
-        ///////////////////////////////CHEAT//////////
-        if (Input.GetKeyDown(KeyCode.H))
+    enum States
+    {
+        Base = 0,
+        FindFood = 1,
+        GoHome = 2,
+        GoPallete = 3,
+    }
+    
+    public void SetStateWithButton(int stateID)
+    {
+        switch (stateID)
         {
-            _stateMachine.SwitchState(GoHome);
+            case (int) States.Base:
+                stateMachine.SetState(Base);
+                break;
+            case (int) States.FindFood:
+                stateMachine.SwitchState(FindFood);
+                break;
+            case (int) States.GoHome:
+                stateMachine.SwitchState(GoHome);
+                break;
+            case (int) States.GoPallete:
+                stateMachine.SwitchState(GoPallete);
+                break;
         }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            _stateMachine.SwitchState(GoPallete);
-        }
-        //////////////////////////////CHEAT//////////
     }
 }
