@@ -24,7 +24,7 @@ public class GoToPalletState : State
 
         if (_target == Vector3.zero)
         {
-            stateMachine.SwitchState(ai.Base);
+            stateMachine.SwitchState(ai.GoHome);
         }
 
         Debug.Log("Enter in: [" + this + "]");
